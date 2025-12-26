@@ -6,7 +6,7 @@ from pyrogram import Client, filters
 
 # ---------------- CONFIG ----------------
 BOT_TOKEN = os.getenv("8356075235:AAGKQV0lTMNNewFDAfMbo-jmgdjcc4wyc44")
-API_ID = int(os.getenv("34651589"))
+API_ID = int(os.getenv("API_ID"))
 API_HASH = os.getenv("734f28c75622e7b933445988a89fae13")
 
 API_URL = "https://script.google.com/macros/s/AKfycbz9-eHwFBWTXzMak6Vfo54vZlJ_3BUA3h-GtctT477Ko-Xy0LCSrKglUyf7UdPfMLVj/exec"
@@ -62,3 +62,4 @@ async def find(client, message):
 if __name__ == "__main__":
     threading.Thread(target=run_web).start()
     bot.run()
+
