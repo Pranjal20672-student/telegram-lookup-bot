@@ -4,10 +4,14 @@ import requests
 from flask import Flask
 from pyrogram import Client, filters
 
-# ---------------- CONFIG ----------------
-BOT_TOKEN = os.getenv("8356075235:AAGKQV0lTMNNewFDAfMbo-jmgdjcc4wyc44")
-API_ID = int(os.getenv("API_ID"))
-API_HASH = os.getenv("734f28c75622e7b933445988a89fae13")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+API_ID = os.getenv("API_ID")
+API_HASH = os.getenv("API_HASH")
+
+if not BOT_TOKEN or not API_ID or not API_HASH:
+    raise RuntimeError("Missing environment variables")
+
+API_ID = int(API_ID)
 
 API_URL = "https://script.google.com/macros/s/AKfycbz9-eHwFBWTXzMak6Vfo54vZlJ_3BUA3h-GtctT477Ko-Xy0LCSrKglUyf7UdPfMLVj/exec"
 
@@ -62,4 +66,5 @@ async def find(client, message):
 if __name__ == "__main__":
     threading.Thread(target=run_web).start()
     bot.run()
+
 
