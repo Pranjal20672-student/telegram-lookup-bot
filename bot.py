@@ -37,29 +37,23 @@ async def start(client, message):
     await message.reply(
         "🤖 Bot is running\n\n"
         "Commands:\n"
-        "/find <number>\n"
-        "/tguid <id>"
+        "/num <number>
     )
 
 # ---------- FIND COMMAND ----------
-@bot.on_message(filters.command("find"))
-async def find(client, message):
+@bot.on_message(filters.command("num"))
+async def num(client, message):
     if len(message.command) < 2:
-        await message.reply("Usage:\n/find 7864904682")
+        await message.reply("Usage:\n/num 7864904682")
         return
 
     number = message.command[1]
 
-    try:
-        r = requests.get(API_URL, params={"term": number}, timeout=15)
-        data = r.json()
-
-        if data.get("data", {}).get("success"):
-            info = data["data"]["result"][0]
+    try:a"]["result"][0]
             reply = (
-                f"📱 Mobile: {info.get('mobile', 'N/A')}\n"
-                f"👤 Name: {info.get('name', 'N/A')}\n"
-                f"👨 Father: {info.get('father_name', 'N/A')}\n"
+                f"📱 Mobile number: {info.get('mobile', 'N/A')}\n"
+                f"👤 Owner name: {info.get('name', 'N/A')}\n"
+                f"👨 Father name: {info.get('father_name', 'N/A')}\n"
                 f"📍 Address: {info.get('address', 'N/A')}\n"
                 f"📡 Circle: {info.get('circle', 'N/A')}"
             )
@@ -71,37 +65,10 @@ async def find(client, message):
 
     await message.reply(reply)
 
-# ---------- TGUID COMMAND ----------
-@bot.on_message(filters.command("tguid"))
-async def tguid(client, message):
-    if len(message.command) < 2:
-        await message.reply("Usage:\n/tguid 123456")
-        return
 
-    tguid = message.command[1]
-
-    try:
-        r = requests.get(TGUID_URL, params={"tguid": tguid}, timeout=15)
-
-        if r.status_code != 200:
-            await message.reply("⚠️ API error")
-            return
-
-        text = r.text.strip()
-
-        if not text:
-            await message.reply("❌ No data found")
-            return
-
-        if len(text) > 4000:
-            text = text[:4000] + "\n\n...truncated"
-
-        await message.reply(f"✅ Result:\n\n{text}")
-
-    except Exception as e:
-        await message.reply(f"⚠️ Error: {e}")
 
 # ---------------- START BOTH ----------------
 if __name__ == "__main__":
     threading.Thread(target=run_web).start()
     bot.run()
+
